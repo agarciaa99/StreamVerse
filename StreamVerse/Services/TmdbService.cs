@@ -41,8 +41,34 @@ namespace StreamVerse.Services
         public async Task<IEnumerable<Media>> GetAccionAsync() =>
             await GetMediasAsync(TmdbUrls.Accion);
 
+        public async Task<IEnumerable<Media>> GetAventuraAsync() =>
+            await GetMediasAsync(TmdbUrls.Aventura);
+
         public async Task<IEnumerable<Media>> GetAnimacionAsync() =>
             await GetMediasAsync(TmdbUrls.Animacion);
+
+        public async Task<IEnumerable<Media>> GetComedyAsync() =>
+            await GetMediasAsync(TmdbUrls.Comedia);
+        public async Task<IEnumerable<Media>> GetDocumentalAsync() =>
+            await GetMediasAsync(TmdbUrls.Documental);
+        public async Task<IEnumerable<Media>> GetDramaAsync() =>
+            await GetMediasAsync(TmdbUrls.Drama);
+        public async Task<IEnumerable<Media>> GetFantasyAsync() =>
+            await GetMediasAsync(TmdbUrls.Fantasia);
+        public async Task<IEnumerable<Media>> GetTerrorAsync() =>
+            await GetMediasAsync(TmdbUrls.Terror);
+        public async Task<IEnumerable<Media>> GetMusicAsync() =>
+            await GetMediasAsync(TmdbUrls.Musica);
+        public async Task<IEnumerable<Media>> GetMisteryAsync() =>
+            await GetMediasAsync(TmdbUrls.Misterio);
+        public async Task<IEnumerable<Media>> GetRomanceAsync() =>
+            await GetMediasAsync(TmdbUrls.Romance);
+        public async Task<IEnumerable<Media>> GetSciFiAsync() =>
+            await GetMediasAsync(TmdbUrls.CienciaFiccion);
+        public async Task<IEnumerable<Media>> GetSuspenseAsync() =>
+            await GetMediasAsync(TmdbUrls.Suspenso);
+        public async Task<IEnumerable<Media>> GetWesternAsync() =>
+            await GetMediasAsync(TmdbUrls.Western);
 
         public async Task<(List<CastMember> actors, List<CrewMember> directors)> GetActorsAndDirectorsAsync(int movieId)
         {
@@ -80,7 +106,7 @@ namespace StreamVerse.Services
         public const string Aventura = "3/discover/movie?language=es-MX&with_genres=12";
         public const string Animacion = "3/discover/movie?language=es-MX&with_genres=16";
         public const string Comedia = "3/discover/movie?language=es-MX&with_genres=35";
-        public const string Docuemntal = "3/discover/movie?language=es-MX&with_genres=99";
+        public const string Documental = "3/discover/movie?language=es-MX&with_genres=99";
         public const string Drama = "3/discover/movie?language=es-MX&with_genres=18";
         public const string Fantasia = "3/discover/movie?language=es-MX&with_genres=14";
         public const string Terror = "3/discover/movie?language=es-MX&with_genres=27";
