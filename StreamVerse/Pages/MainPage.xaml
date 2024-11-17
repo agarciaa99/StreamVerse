@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StreamVerse.Pages.MainPage"
              Shell.NavBarIsVisible ="False"
-             BackgroundColor="#222"
+             BackgroundColor="#3D3B40"
              xmlns:vm="clr-namespace:StreamVerse.ViewModels"
+             xmlns:controls="clr-namespace:StreamVerse.Controls"
              x:DataType="vm:HomeViewModel">
 
     <Grid Margin="0"
@@ -26,7 +27,7 @@
                                            Spacing="40">
                         <Border StrokeShape="RoundRectangle 10"
                                 Stroke="Transparent"
-                                BackgroundColor="White"
+                                BackgroundColor="#BFCFE7"
                                 Padding="15, 10">
                             <HorizontalStackLayout Spacing="5"
                                                     VerticalOptions="Center">
@@ -43,7 +44,7 @@
 
                         <Border StrokeShape="RoundRectangle 10"
                                 Stroke="Transparent"
-                                BackgroundColor="#1068c5"
+                                BackgroundColor="#525CEB"
                                 Padding="15, 10">
                             <HorizontalStackLayout Spacing="5"
                                                    VerticalOptions="Center">
@@ -58,6 +59,24 @@
                         </Border>
                     </HorizontalStackLayout>
                 </Grid>
+
+                <controls:MovieRow Heading="Top 10" Movies="{Binding TopTenMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Populares" Movies="{Binding PopularMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Acción" Movies="{Binding ActionMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Aventura" Movies="{Binding AdventureMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Animación" Movies="{Binding AnimationMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Comedia" Movies="{Binding ComedyMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Documentales" Movies="{Binding DocumentalMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Drama" Movies="{Binding DramaMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Fantasía" Movies="{Binding FantsyMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Terror" Movies="{Binding TerrorMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Musicales" Movies="{Binding MusicMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Misterio" Movies="{Binding MisteryMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Romance" Movies="{Binding RomanceMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Ciencia Ficción" Movies="{Binding SciFiMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Suspenso" Movies="{Binding SuspenseMovies}" IsLarge="True"/>
+                <controls:MovieRow Heading="Western" Movies="{Binding WesternMovies}" IsLarge="True"/>
+
             </VerticalStackLayout>
         </ScrollView>
 

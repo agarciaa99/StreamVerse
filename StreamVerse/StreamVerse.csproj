@@ -60,6 +60,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\values\styles.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
@@ -68,7 +72,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Controls\" />
+	  <MauiXaml Update="Controls\MovieRow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
