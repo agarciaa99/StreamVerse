@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="StreamVerse.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:StreamVerse.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    Title="StreamVerse">
+
+    <TabBar>
+        <ShellContent
+            Title="Películas"
+            Icon="movies"
+            ContentTemplate="{DataTemplate pages:MainPage}"
+            Route="MainPage"/>
+        <ShellContent
+            Title="Series"
+            Icon="series"
+            ContentTemplate="{DataTemplate pages:MainPage}"
+            Route="MainPage1"/>
+        <ShellContent
+            Title="Perfil"
+            Icon="user"
+            ContentTemplate="{DataTemplate pages:MainPage}"
+            Route="MainPage2"/>
+    </TabBar>
+
+</Shell>
