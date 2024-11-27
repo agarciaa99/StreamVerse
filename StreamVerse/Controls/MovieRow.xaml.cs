@@ -1,6 +1,14 @@
+using System.Windows.Input;
 using StreamVerse.Models;
+using StreamVerse.ViewModels;
 
 namespace StreamVerse.Controls;
+
+public class MediaSelectEventArgs : EventArgs
+{
+    public Media Media { get; set; }
+    public MediaSelectEventArgs(Media media) => Media = media;
+}
 
 public partial class MovieRow : ContentView
 {
@@ -13,10 +21,13 @@ public partial class MovieRow : ContentView
     public static readonly BindableProperty IsLargeProperty =
         BindableProperty.Create(nameof(IsLarge), typeof(bool), typeof(MovieRow), false);
 
+    public event EventHandler<MediaSelectEventArgs> MediaSelected;
+
     public MovieRow()
 	{
 		InitializeComponent();
-	}
+        MediaDetailsCommand = new Command(ExecuteMediaDetailsCommand);
+    }
 
     public string Heading
 	{
@@ -37,4 +48,13 @@ public partial class MovieRow : ContentView
     }
 
     public bool IsNotLarge => !IsLarge;
+    public ICommand MediaDetailsCommand { get; private set; }
+    private void ExecuteMediaDetailsCommand(object parameter)
+    {
+        if (parameter is Media media && media is not null)
+        {
+            MediaSelected?.Invoke(this, new MediaSelectEventArgs(media));
+        }
+    }
+    //public HomeViewModel HomeViewModel { get; }
 }

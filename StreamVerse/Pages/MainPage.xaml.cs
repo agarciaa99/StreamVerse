@@ -20,4 +20,14 @@ public partial class MainPage : ContentPage
         await _homeViewModel.InitializeAsync();
     }
 
+    private void MovieRow_MediaSelected(object sender, Controls.MediaSelectEventArgs e)
+    {
+        _homeViewModel.SelectMediaCommand.Execute(e.Media);
+    }
+
+    private void MovieInfoBox_Closed(object sender, EventArgs e)
+    {
+        _homeViewModel.SelectMediaCommand.Execute(null);
+    }
+
 }

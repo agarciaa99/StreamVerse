@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StreamVerse.Controls.MovieInfoBox"
+             xmlns:controls="clr-namespace:StreamVerse.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="this"
+             Padding="0"
+             Margin="0">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Ellipse" x:Key="iconBg">
+                <Setter Property="HeightRequest" Value="35"/>
+                <Setter Property="WidthRequest" Value="35"/>
+                <Setter Property="Margin" Value="0,5"/>
+                <Setter Property="Fill" Value="#3c3c3c"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Image" x:Key="iconImg">
+                <Setter Property="HeightRequest" Value="20"/>
+                <Setter Property="WidthRequest" Value="20"/>
+                <Setter Property="Aspect" Value="AspectFill"/>
+            </Style>
+            <Style TargetType="Label" x:Key="iconBtnText">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="TextColor" Value="#9d9d9d"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Border BindingContext="{x:Reference this}"
+            StrokeShape="RoundRectangle 20, 20, 0, 0"
+            StrokeThickness="0"
+            BackgroundColor="#222"
+            Margin="0"
+            Padding="0">
+        <VerticalStackLayout Margin="0, 20">
+            <Grid RowDefinitions="Auto, Auto, Auto"
+                  ColumnDefinitions="130, *"
+                  Padding="6"
+                  Margin="2,0"
+                  ColumnSpacing="15">
+                <Border Grid.Column="0"
+                        Grid.RowSpan="3"
+                        HeightRequest="180"
+                        WidthRequest="120"
+                        StrokeShape="RoundRectangle 5"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        Padding="0">
+                    <Image Aspect="AspectFit"
+                           HeightRequest="180"
+                           WidthRequest="120">
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding Media.Thumbnail}"/>
+                        </Image.Source>
+                    </Image>
+                </Border>
+
+                <Grid Grid.Row="0"
+                      Grid.Column="1"
+                      ColumnDefinitions="*, Auto"
+                      Margin="0, 5">
+                    <Label Grid.Column="0"
+                           Text="{Binding Media.DisplayTitle}"
+                           FontSize="17"
+                           LineBreakMode="CharacterWrap"/>
+                    <Button Grid.Column="1"
+                            Text="X"
+                            FontSize="15"
+                            Background="#525252"
+                            VerticalOptions="Center"
+                            HeightRequest="25"
+                            WidthRequest="25"
+                            CornerRadius="25"
+                            Padding="0"
+                            Command="{Binding ClosedCommand}"
+                            Clicked="Button_Clicked"/>
+                </Grid>
+
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding Media.ReleaseDate}"
+                       FontSize="13"
+                       TextColor="#9d9d9d"/>
+
+                <Label Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding Media.Overview}"
+                       FontSize="14"
+                       MaxLines="5"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*"
+                  Margin="0, 20, 0, 5">
+                <Grid Grid.Column="0" 
+                      RowDefinitions="Auto, Auto">
+                    <Ellipse Style="{StaticResource iconBg}"/>
+                    <Image Source="play"
+                           Style="{StaticResource iconImg}">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="White"/>
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Grid.Row="1"
+                           Text="Reproducir"
+                           Style="{StaticResource iconBtnText}"/>
+                </Grid>
+
+                <Grid Grid.Column="1" 
+                      RowDefinitions="Auto, Auto">
+                    <Ellipse Style="{StaticResource iconBg}"/>
+                    <Image Source="info"
+                           Style="{StaticResource iconImg}">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="White"/>
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Grid.Row="1"
+                           Text="Más Info"
+                           Style="{StaticResource iconBtnText}"/>
+                </Grid>
+            </Grid>
+        </VerticalStackLayout>
+    </Border>
+    
+</ContentView>
