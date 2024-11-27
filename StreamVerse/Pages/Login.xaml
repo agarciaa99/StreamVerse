@@ -7,7 +7,7 @@
                      HorizontalOptions="Center"
                      VerticalOptions="Center">
 
-        <Image Source="dotnet_bot.png"
+        <Image Source="logo.png"
            WidthRequest="150"
            HeightRequest="150"
            HorizontalOptions="Center"
