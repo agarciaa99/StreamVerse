@@ -8,6 +8,7 @@ using StreamVerse.Models;
 using System.Collections.ObjectModel;
 using StreamVerse.Services;
 using System.Timers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace StreamVerse.ViewModels
 {
@@ -28,6 +29,12 @@ namespace StreamVerse.ViewModels
 
         [ObservableProperty]
         private Media _popularMovie;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ShowMovieInfoBox))]
+        private Media? _selectedMedia;
+
+        public bool ShowMovieInfoBox => SelectedMedia is not null;
 
         public ObservableCollection<Media> TopTenMovies { get; set; } = new();
         public ObservableCollection<Media> PopularMovies { get; set; } = new();
@@ -124,6 +131,8 @@ namespace StreamVerse.ViewModels
             SetMediaCollection(scifiList, SciFiMovies);
             SetMediaCollection(suspenseList, SuspenseMovies);
             SetMediaCollection(westernList, WesternMovies);
+
+            //SelectedMedia = PopularMovie;
         }
 
         private void ChangePopularMovie()
@@ -145,6 +154,19 @@ namespace StreamVerse.ViewModels
             {
                 collection.Add(media);
             }
+        }
+
+        [RelayCommand]
+        private void SelectMedia(Media? media = null)
+        {
+            if (media is not null)
+            {
+                if (media.Id == SelectedMedia?.Id)
+                {
+                    media = null;
+                }
+            }
+            SelectedMedia = media;
         }
     }
 }

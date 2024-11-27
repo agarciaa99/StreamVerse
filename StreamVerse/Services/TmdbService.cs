@@ -101,7 +101,7 @@ namespace StreamVerse.Services
     public static class TmdbUrls
     {
         public const string TopTen = "3/movie/top_rated?language=es-MX";
-        public const string Popular = "3/movie/popular?language=en-US";
+        public const string Popular = "3/trending/movie/day?language=es-MX";
         public const string Accion = "3/discover/movie?language=es-MX&with_genres=28";
         public const string Aventura = "3/discover/movie?language=es-MX&with_genres=12";
         public const string Animacion = "3/discover/movie?language=es-MX&with_genres=16";
