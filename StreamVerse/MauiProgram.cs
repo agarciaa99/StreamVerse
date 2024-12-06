@@ -36,6 +36,8 @@ namespace StreamVerse
 
 
 
+            builder.Services.AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage));
+
             return builder.Build();
         }
     }

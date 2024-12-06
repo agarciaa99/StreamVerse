@@ -16,6 +16,7 @@ namespace StreamVerse.Models
         public string ThumbnailUrl { get; set; }
         public string Overview { get; set; }
         public string ReleaseDate { get; set; }
+        public string TrailerURL { get; set; }
 
         public override bool Equals(object obj)
         {

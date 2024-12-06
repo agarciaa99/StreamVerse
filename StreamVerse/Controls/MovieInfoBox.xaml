@@ -117,6 +117,9 @@
                         <Image.Behaviors>
                             <toolkit:IconTintColorBehavior TintColor="White"/>
                         </Image.Behaviors>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </Image.GestureRecognizers>
                     </Image>
                     <Label Grid.Row="1"
                            Text="Más Info"
