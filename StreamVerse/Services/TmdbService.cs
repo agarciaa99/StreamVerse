@@ -31,7 +31,12 @@ namespace StreamVerse.Services
             return topTenCollection.results
                 .Select(r => r.ToMediaObject());
         }
-
+        public async Task<IEnumerable<Media>> SearchMoviesAsync(string query)
+        {
+            var response = await HttpClient.GetFromJsonAsync<Movie>(
+                $"3/search/movie?query={Uri.EscapeDataString(query)}&api_key={ApiKey}");
+            return response?.results?.Select(r => r.ToMediaObject()) ?? Enumerable.Empty<Media>();
+        }
         public async Task<IEnumerable<Media>> GetTopTenAsync() =>
             await GetMediasAsync(TmdbUrls.TopTen);
 

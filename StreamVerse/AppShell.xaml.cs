@@ -9,6 +9,7 @@ namespace StreamVerse
             InitializeComponent();
 
             //Routing.RegisterRoute(nameof(DetailsPage), typeof(DetailsPage));
+            Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
         }
     }
 }

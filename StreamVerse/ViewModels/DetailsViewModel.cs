@@ -86,7 +86,7 @@ namespace StreamVerse.ViewModels
         {
             var parameters = new Dictionary<string, object>
             {
-                [nameof(DetailsViewModel.Media)] = Media
+                [nameof(DetailsViewModel.Media)] = media // Pasa el media seleccionado
             };
             await Shell.Current.GoToAsync(nameof(DetailsPage), true, parameters);
         }

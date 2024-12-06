@@ -36,4 +36,9 @@ public partial class MovieInfoBox : ContentView
 		};
 		await Shell.Current.GoToAsync(nameof(DetailsPage), true, parameters);
     }
+
+    private void OnBackgroundTapped(object sender, TappedEventArgs e)
+    {
+        // Este método consume el evento para evitar cualquier acción si el usuario hace tap fuera de las áreas válidas.
+    }
 }

@@ -33,11 +33,27 @@ public partial class MainPage : ContentPage
         _homeViewModel.SelectMediaCommand.Execute(null);
     }
 
+
+
+
+
+
+
+
+
     // Llamar cuando el usuario vea una película
     private async void OnWatchMedia(Media selectedMedia)
     {
         await _historyService.AddToHistoryAsync(selectedMedia);
         await DisplayAlert("Historial", $"{selectedMedia.DisplayTitle} se ha agregado a tu historial.", "OK");
+
+    private async void Search_Tapped(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(SearchPage));
+
     }
+
+
+
 
 }
