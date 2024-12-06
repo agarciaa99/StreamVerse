@@ -1,4 +1,5 @@
 ﻿using StreamVerse.Services;
+using StreamVerse.Models;
 using StreamVerse.ViewModels;
 
 namespace StreamVerse.Pages;
@@ -6,12 +7,14 @@ namespace StreamVerse.Pages;
 public partial class MainPage : ContentPage
 {
     private readonly HomeViewModel _homeViewModel;
+    private readonly HistorialService _historyService;
 
     public MainPage(HomeViewModel homeViewModel)
     {
         InitializeComponent();
         _homeViewModel = homeViewModel;
         BindingContext = _homeViewModel;
+        _historyService = new HistorialService();
     }
 
     protected async override void OnAppearing()
@@ -28,6 +31,13 @@ public partial class MainPage : ContentPage
     private void MovieInfoBox_Closed(object sender, EventArgs e)
     {
         _homeViewModel.SelectMediaCommand.Execute(null);
+    }
+
+    // Llamar cuando el usuario vea una película
+    private async void OnWatchMedia(Media selectedMedia)
+    {
+        await _historyService.AddToHistoryAsync(selectedMedia);
+        await DisplayAlert("Historial", $"{selectedMedia.DisplayTitle} se ha agregado a tu historial.", "OK");
     }
 
 }

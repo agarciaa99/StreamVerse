@@ -4,40 +4,43 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StreamVerse.Models;
+using System.Text.Json;
 
 namespace StreamVerse.Services
 {
     public class HistorialService
     {
-        // Lista observable para mantener el historial de películas
-        public ObservableCollection<Pelicula> Peliculas { get; private set; }
+        private readonly string _filePath;
 
         public HistorialService()
         {
-            // Inicializamos con algunos datos de ejemplo (puedes eliminarlos después)
-            Peliculas = new ObservableCollection<Pelicula>
-            {
-                new Pelicula { Titulo = "Inception", FechaVista = DateTime.Now.AddDays(-10) },
-                new Pelicula { Titulo = "The Matrix", FechaVista = DateTime.Now.AddDays(-5) },
-                new Pelicula { Titulo = "Avatar", FechaVista = DateTime.Now.AddDays(-2) }
-            };
+            _filePath = Path.Combine(FileSystem.AppDataDirectory, "mediaHistory.json");
         }
-
-        // Método para agregar una nueva película al historial
-        public void AgregarPelicula(string titulo)
+        // Obtiene el historial completo
+        public async Task<List<MediaHistory>> GetHistoryAsync()
         {
-            Peliculas.Add(new Pelicula
-            {
-                Titulo = titulo,
-                FechaVista = DateTime.Now
-            });
-        }
-    }
+            if (!File.Exists(_filePath))
+                return new List<MediaHistory>();
 
-    // Clase para representar las películas
-    public class Pelicula
-    {
-        public string Titulo { get; set; }
-        public DateTime FechaVista { get; set; }
+            var json = await File.ReadAllTextAsync(_filePath);
+            return JsonSerializer.Deserialize<List<MediaHistory>>(json) ?? new List<MediaHistory>();
+        }
+
+        // Agrega una nueva película al historial
+        public async Task AddToHistoryAsync(Media media)
+        {
+            var history = await GetHistoryAsync();
+            var historyItem = new MediaHistory
+            {
+                Media = media,
+                WatchedOn = DateTime.Now
+            };
+
+            history.Add(historyItem);
+
+            var json = JsonSerializer.Serialize(history, new JsonSerializerOptions { WriteIndented = true });
+            await File.WriteAllTextAsync(_filePath, json);
+        }
     }
 }

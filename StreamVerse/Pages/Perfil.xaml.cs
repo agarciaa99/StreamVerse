@@ -1,12 +1,21 @@
 using StreamVerse.Services;
+using StreamVerse.Models;
+
 namespace StreamVerse.Pages;
 
 public partial class Perfil : ContentPage
 {
-	public Perfil(HistorialService historialService)
+    private readonly HistorialService _historyService;
+    public Perfil(HistorialService historialService)
 	{
 		InitializeComponent();
-        BindingContext = historialService; // Enlaza las películas al historial
+        _historyService = new HistorialService();
+        LoadHistory();
+    }
+    private async void LoadHistory()
+    {
+        var history = await _historyService.GetHistoryAsync();
+        HistoryCollectionView.ItemsSource = history;
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
