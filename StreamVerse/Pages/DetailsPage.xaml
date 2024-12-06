@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StreamVerse.Pages.DetailsPage"
+             xmlns:vm="clr-namespace:StreamVerse.ViewModels"
+             xmlns:models="clr-namespace:StreamVerse.Models"
+             x:DataType="vm:DetailsViewModel"
+             BackgroundColor="#222"
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#222"
+             Title="">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="sub">
+                <Setter Property="TextColor" Value="Gray"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style TargetType="Label" x:Key="tabtitle">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextTransform" Value="Uppercase"/>
+                <Setter Property="Margin" Value="0, 5, 0, 0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView BackgroundColor="#222">
+        <Grid>
+            <ActivityIndicator Color="White"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               HeightRequest="50"
+                               WidthRequest="50"
+                               IsRunning="{Binding IsBusy}"/>
+            <VerticalStackLayout IsVisible="False">
+                <VerticalStackLayout.Triggers>
+                    <DataTrigger TargetType="VerticalStackLayout"
+                                 Binding="{Binding IsBusy}"
+                                 Value="false">
+                        <Setter Property="IsVisible" Value="True"/>
+                    </DataTrigger>
+                </VerticalStackLayout.Triggers>
+                <WebView Source="{Binding MainTrailer}" 
+                         HeightRequest="250"/>
+                <VerticalStackLayout Padding="5"
+                                     Spacing="15"
+                                     Margin="0, 15, 0, 0">
+                    <Label Text="{Binding Media.DisplayTitle}"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    <HorizontalStackLayout Spacing="15">
+                        <Label Text="{Binding Media.ReleaseDate}"
+                               Style="{x:StaticResource sub}"/>
+                        <Label Text="{Binding Runtime, StringFormat='{0} minutos'}"
+                               Style="{x:StaticResource sub}"/>
+                    </HorizontalStackLayout>
+
+                    <Button Text="Reproducir"
+                            BackgroundColor="#525CEB"
+                            TextColor="White"
+                            FontSize="16"
+                            CornerRadius="5"
+                            FontAttributes="Bold"/>
+
+                    <Label Text="{Binding Media.Overview}"
+                           FontSize="14"/>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Margin="5">
+                    <BoxView HeightRequest="2"/>
+
+                    <Grid RowDefinitions="Auto, Auto"
+                          ColumnDefinitions="Auto, Auto"
+                          ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Row="0"
+                                             Grid.Column="0">
+                            <BoxView HeightRequest="4"
+                                     Color="Blue"
+                                     x:Name="similarTabIndicator"/>
+
+                            <Label Text="Relacionados"
+                                   Style="{x:StaticResource tabtitle}"
+                                   Margin="0,0,0,10"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+
+                <Border BackgroundColor="#222"
+                        StrokeThickness="0"
+                        IsVisible="True"
+                        x:Name="similarTabContent">
+
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Similar}"
+                                Wrap="Wrap"
+                                JustifyContent="SpaceBetween">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:Media">
+                                <Border StrokeShape="RoundRectangle 4"
+                                        BackgroundColor="#222"
+                                        StrokeThickness="0"
+                                        HeightRequest="180"
+                                        WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type vm:DetailsViewModel}}, Path=SimilarItemWidth}"
+                                        Margin="0, 0, 0, 5">
+                                    <Image Source="{Binding Thumbnail}"
+                                           Aspect="AspectFit">
+                                        
+                                    </Image>
+                                </Border>
+                            </DataTemplate> 
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </Border>
+                
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

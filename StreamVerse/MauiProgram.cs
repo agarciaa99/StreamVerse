@@ -30,6 +30,8 @@ namespace StreamVerse
             builder.Services.AddSingleton<HomeViewModel>();
             builder.Services.AddSingleton<MainPage>();
 
+            builder.Services.AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage));
+
             return builder.Build();
         }
     }
