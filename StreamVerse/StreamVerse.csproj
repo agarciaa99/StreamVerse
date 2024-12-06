@@ -87,6 +87,9 @@
 	  <MauiXaml Update="Pages\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	<MauiXaml Update="Pages\Perfil.xaml">
+		<Generator>MSBuild:Compile</Generator>
+	</MauiXaml>
 	</ItemGroup>
 
 </Project>
