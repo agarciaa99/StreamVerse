@@ -1,5 +1,7 @@
 using System.Windows.Input;
 using StreamVerse.Models;
+using StreamVerse.Pages;
+using StreamVerse.ViewModels;
 
 namespace StreamVerse.Controls;
 
@@ -26,4 +28,17 @@ public partial class MovieInfoBox : ContentView
 
     private void Button_Clicked(object sender, EventArgs e) => Closed?.Invoke(this, EventArgs.Empty);
 
+	private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+	{
+		var parameters = new Dictionary<string, object>
+		{
+			[nameof(DetailsViewModel.Media)] = Media
+		};
+		await Shell.Current.GoToAsync(nameof(DetailsPage), true, parameters);
+    }
+
+    private void OnBackgroundTapped(object sender, TappedEventArgs e)
+    {
+        // Este método consume el evento para evitar cualquier acción si el usuario hace tap fuera de las áreas válidas.
+    }
 }

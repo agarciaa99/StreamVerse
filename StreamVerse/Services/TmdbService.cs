@@ -31,7 +31,12 @@ namespace StreamVerse.Services
             return topTenCollection.results
                 .Select(r => r.ToMediaObject());
         }
-
+        public async Task<IEnumerable<Media>> SearchMoviesAsync(string query)
+        {
+            var response = await HttpClient.GetFromJsonAsync<Movie>(
+                $"3/search/movie?query={Uri.EscapeDataString(query)}&api_key={ApiKey}");
+            return response?.results?.Select(r => r.ToMediaObject()) ?? Enumerable.Empty<Media>();
+        }
         public async Task<IEnumerable<Media>> GetTopTenAsync() =>
             await GetMediasAsync(TmdbUrls.TopTen);
 
@@ -69,6 +74,26 @@ namespace StreamVerse.Services
             await GetMediasAsync(TmdbUrls.Suspenso);
         public async Task<IEnumerable<Media>> GetWesternAsync() =>
             await GetMediasAsync(TmdbUrls.Western);
+
+        public async Task<MovieDetail> GetMediaDetailsAsync(int id, string type = "movie") =>
+            await HttpClient.GetFromJsonAsync<MovieDetail>(
+                $"{TmdbUrls.GetMovieDetail(id, type)}&api_key={ApiKey}");
+        public async Task<IEnumerable<Video>?> GetTrailersAsync(int id, string type = "movie")
+        {
+            var videosWrapper = await HttpClient.GetFromJsonAsync<VideosWrapper>(
+                $"{TmdbUrls.GetTrailers(id, type)}&api_key={ApiKey}");
+
+            if(videosWrapper?.results?.Length > 0)
+            {
+                var trailerTeasers = videosWrapper.results.Where(VideosWrapper.FilterTrailerTeasers);
+                return trailerTeasers;
+            }
+            return null;
+        }
+
+        public async Task<IEnumerable<Media>> GetSimilarAsync(int id, string type = "movie") =>
+            await GetMediasAsync(
+                $"{TmdbUrls.GetSimilar(id, type)}&api_key={ApiKey}");
 
         public async Task<(List<CastMember> actors, List<CrewMember> directors)> GetActorsAndDirectorsAsync(int movieId)
         {
@@ -190,7 +215,7 @@ namespace StreamVerse.Services
     {
         public bool adult { get; set; }
         public string backdrop_path { get; set; }
-        public string belongs_to_collection { get; set; }
+        public Collection belongs_to_collection { get; set; }
         public int budget { get; set; }
         public Genre[] genres { get; set; }
         public string homepage { get; set; }
@@ -215,6 +240,13 @@ namespace StreamVerse.Services
         public int vote_count { get; set; }
     }
 
+    public class Collection
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string poster_path { get; set; }
+        public string backdrop_path { get; set; }
+    }
     public class Production_Companies
     {
         public int id { get; set; }
