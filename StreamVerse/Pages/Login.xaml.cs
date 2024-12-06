@@ -28,7 +28,8 @@ public partial class Login : ContentPage
         var validUsers = new Dictionary<string, string>
         {
             { "arturo", "1234" },
-            { "ivan", "1234" }
+            { "ivan", "1234" },
+            { "mauricio", "2468" }
         };
         return validUsers.TryGetValue(username, out var validPassword) && validPassword == password;
     }

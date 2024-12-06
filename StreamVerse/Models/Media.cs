@@ -17,5 +17,14 @@ namespace StreamVerse.Models
         public string Overview { get; set; }
         public string ReleaseDate { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Media media && Id == media.Id;
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
     }
 }

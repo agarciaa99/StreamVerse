@@ -48,7 +48,7 @@
 
                         <Border StrokeShape="RoundRectangle 10"
                                 Stroke="Transparent"
-                                BackgroundColor="#525CEB"
+                                BackgroundColor="#4f77f3"
                                 Padding="15, 10">
                             <HorizontalStackLayout Spacing="5"
                                                    VerticalOptions="Center">

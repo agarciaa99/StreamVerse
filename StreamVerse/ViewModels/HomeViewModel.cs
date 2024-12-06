@@ -14,6 +14,9 @@ namespace StreamVerse.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
+        //COLECCION PARA EL HISTORIAL DE PELICULAS
+        public ObservableCollection<Media> ViewedMoviesHistory { get; private set; } = new();
+
         private readonly TmdbService _tmdbService;
         private readonly System.Timers.Timer _movieTimer;
         private IEnumerable<Media> _popularList;
@@ -164,6 +167,14 @@ namespace StreamVerse.ViewModels
                 if (media.Id == SelectedMedia?.Id)
                 {
                     media = null;
+                }
+                else
+                {
+                    // Agregar al historial
+                    if (!ViewedMoviesHistory.Any(m => m.Id == media.Id))
+                    {
+                        ViewedMoviesHistory.Add(media);
+                    }
                 }
             }
             SelectedMedia = media;

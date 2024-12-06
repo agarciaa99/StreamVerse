@@ -26,9 +26,15 @@ namespace StreamVerse
             builder.Services.AddHttpClient(TmdbService.TmdbHttpClientName,
                 httpClient => httpClient.BaseAddress =  new Uri("https://api.themoviedb.org"));
 
+            // Registros de servicios y vistas
+            builder.Services.AddSingleton<HistorialService>();
             builder.Services.AddSingleton<TmdbService>();
             builder.Services.AddSingleton<HomeViewModel>();
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddTransient<Perfil>(); // Registro de la página Perfil
+
+
+
 
             return builder.Build();
         }
