@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StreamVerse.Pages.SearchPage"
+             Title=""
+             xmlns:vm="clr-namespace:StreamVerse.ViewModels"
+             xmlns:models="clr-namespace:StreamVerse.Models"
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#222"
+             x:DataType="vm:SearchViewModel">
+
+    <ScrollView>
+    <VerticalStackLayout Padding="10">
+        <SearchBar Placeholder="Buscar película..."
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
+        <CollectionView ItemsSource="{Binding SearchResults}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Media">
+                    <HorizontalStackLayout Padding="10" Spacing="20">
+                        <!-- Imagen a la izquierda -->
+                        <Image Source="{Binding Thumbnail}"
+                               HeightRequest="100"
+                               WidthRequest="80"
+                               Aspect="AspectFill"/>
+                        <!-- Contenedor para título y fecha -->
+                        <VerticalStackLayout VerticalOptions="CenterAndExpand" Spacing="5">
+                            <Label Text="{Binding DisplayTitle}" 
+                                   FontAttributes="Bold" 
+                                   FontSize="18" 
+                                   TextColor="White"/>
+                            <Label Text="{Binding ReleaseDate}"
+                                   TextColor="Gray"
+                                   FontSize="14"/>
+                        </VerticalStackLayout>
+                        <!-- Gestor de clic para la fila completa -->
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=NavigateToDetailsCommand}"
+                                                  CommandParameter="{Binding .}"/>
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

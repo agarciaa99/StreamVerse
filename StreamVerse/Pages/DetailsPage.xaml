@@ -93,22 +93,24 @@
                         x:Name="similarTabContent">
 
                     <FlexLayout BindableLayout.ItemsSource="{Binding Similar}"
-                                Wrap="Wrap"
-                                JustifyContent="SpaceBetween">
+            Wrap="Wrap"
+            JustifyContent="SpaceBetween">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:Media">
                                 <Border StrokeShape="RoundRectangle 4"
-                                        BackgroundColor="#222"
-                                        StrokeThickness="0"
-                                        HeightRequest="180"
-                                        WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type vm:DetailsViewModel}}, Path=SimilarItemWidth}"
-                                        Margin="0, 0, 0, 5">
+                    BackgroundColor="#222"
+                    StrokeThickness="0"
+                    HeightRequest="180"
+                    WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type vm:DetailsViewModel}}, Path=SimilarItemWidth}"
+                    Margin="0, 0, 0, 5">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DetailsViewModel}}, Path=ChangeToThisMediaCommand}"
+                                          CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
                                     <Image Source="{Binding Thumbnail}"
-                                           Aspect="AspectFit">
-                                        
-                                    </Image>
+                       Aspect="AspectFit" />
                                 </Border>
-                            </DataTemplate> 
+                            </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </FlexLayout>
                 </Border>
